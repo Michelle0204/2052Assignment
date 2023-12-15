@@ -1,0 +1,68 @@
+.pokemonInfo{
+    font-size: 16px;
+}
+
+.card {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.p_card.border {
+    border-color: #ffca18;
+    border: 4px;
+    border-radius: 2%;
+}
+
+.border {
+    border-color: #ffca18;
+    border: 4px;
+    border-radius: 2%;
+}
+
+.container{
+    display: flex;
+}
+
+.pinapple{
+    position: inherit;
+}
+
+.col-3 {
+    border: 4px;
+    border-radius: 7px;
+    background-color: #ffc400;
+    font-size: 12px; 
+}
+
+.border-edit{
+    border-top: 5px solid #ffc400;
+    border-left: 5px solid #ffc400;
+    border-right: 5px solid #ffc400;
+    margin-bottom: 5px solid #ffc400;
+}
+
+h2{
+    font-weight: bold;
+    margin: 0px;
+    padding-top: 5px;
+    justify-content: center;
+    display: grid;
+}
+.info{
+    margin-top: 11px;
+  margin-left: 20px;
+  min-width: 300px;
+}
+
+.filter.show{
+    display:block;
+}
+
+.filter{
+    display: block;
+}
+
+.inputForm{
+    max-width: 500px;
+    display: grid;
+    justify-items: center;
+}

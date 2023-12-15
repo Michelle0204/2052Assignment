@@ -1,0 +1,33 @@
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+
+        <div>
+            <div class="col-12 mid">
+                <div class="p-card size">
+                    <div class="p-card__content font">
+                        <form method="post" action="/settings">
+                            <fieldset>
+                                <label for="username">username</label>
+                                <input placeholder="username" id="usernameInput" name="username" type="text">
+
+                                <label for="email">Email address</label>
+                                <input placeholder="example@canonical.com" id="email" name="email" type="email">
+
+                                <label for="password">Password</label>
+                                <input type="password" id="exampleInputPassword1" name="password" placeholder="******">
+
+                                <button type="submit" name="submit">Submit</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</body>

@@ -1,0 +1,13 @@
+.size {
+    max-width: 500px;
+    position: center;
+}
+
+.mid {
+    position: center;
+    margin-top: 20px;
+}
+.font{
+  font-size: larger;
+  font-weight: bolder;
+}

@@ -1,0 +1,59 @@
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+        <div class="mid">
+            <img class="p-image--bordered mid" src="/img/pokemon2.png">
+        </div>
+
+        <% if(typeof pokemon !=='undefined' ) { pokemon.forEach((pokemonster)=> { %>
+            <div class="container">
+
+                <div class="col-3 border-edit card">
+                    <div class="p-card u-no-padding">
+                        <div class="p-card__content">
+                            <img class="p-card__image" alt="<%= pokemonster.name %>" height="185" width="330"
+                                src="<%=pokemonster.Image%>">
+                            <h2>
+                                <p href="/singleCard?id=<%=pokemonster.id%>">
+                                </p>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="p-card info">
+                        <div class="p-card__content">
+                            <h2>
+                                <p href="/singleCard?id=<%=pokemonster.id%>">
+                                    <%= pokemonster.name %>
+                                </p>
+                            </h2>
+                            <p>
+                            <ul>
+                                <li>ID: <%=pokemonster.localId%>
+                                </li>
+                                <li>Rarity:<%=pokemonster.rarity%>
+                                </li>
+                                <li>
+                                    HP:<%=pokemonster.hp%>
+                                </li>
+                                <li> DexID: <%=pokemonster.dexId%>
+                                </li>
+                                <li>Type: <%=pokemonster.type1%>
+                                </li>
+                                <li> Evolves From: <%=pokemonster.evolvesFrom%>
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+            <% })} %>
+</body>

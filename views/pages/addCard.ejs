@@ -1,0 +1,34 @@
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include("../partials/nav") %>
+
+        <form method="POST" action="/addCard">
+            <fieldset class="inputForm">
+                <label for="username">Username:</label>
+                <input placeholder="Bob" id="username" name="username" type="text" autocomplete="username">
+                <input type="text" hidden name="memberId" value="<%= memberId %>">
+
+                <label for="pokemonname">Pokemon Name:</label>
+                <input placeholder="Charizard" id="pokemonname" name="pokemonname" type="text">
+
+                <label for="dexid">Pokemon DexID:</label>
+                <input placeholder="78" id="dexid" name="dexid" type="int">
+
+                <label for="rarity">Rarity:</label>
+                <input placeholder="Common" id="rarity" name="rarity" type="text">
+
+                <label for="hp">HP:</label>
+                <input placeholder="50" id="hp" name="hp" type="int">
+
+                <label for="type">Type:</label>
+                <input placeholder="Fire" id="type" name="type" type="text">
+
+                <button class="p-button" onclick="addCardToCollection('inputForm')">Add Card</button>
+            </fieldset>
+        </form>
+
+
+</body>

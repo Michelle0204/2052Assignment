@@ -1,0 +1,30 @@
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+
+        <div>
+            <div class="col-12 mid">
+                <div class="p-card size">
+                    <div class="p-card__content font">
+                        <form method="POST" action="/login">
+                            <fieldset>
+                                <label for="email">Email address</label>
+                                <input placeholder="example@canonical.com" name="email" id="email" type="email" autocomplete="email">
+                                
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" id="exampleInputPassword1" name="password"
+                                    placeholder="******" autocomplete="current-password">
+                                <button type="submit" name="submit">Submit</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</body>

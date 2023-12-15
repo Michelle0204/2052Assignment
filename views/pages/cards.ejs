@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+  <%- include("../partials/nav") %>
+
+    <div class="mid">
+      <img class="p-image--bordered mid" src="/img/pokemon2.png">
+    </div>
+    <div class="container">
+      <%- include("../partials/side")%>
+        <div class="row">
+          <script src="/cards.js"></script>
+          <% if(typeof pokemon !=='undefined' ) { pokemon.forEach((pokemonster)=> { %>
+            <div class="col-3 border-edit filter <%=pokemonster.type1%> <%=pokemonster.rarity%> <%=pokemonster.name%>">
+              <div class="p-card u-no-padding">
+                <div class="p-card__content">
+                  <img class="p-card__image" alt="" height="185" width="330" src="<%=pokemonster.Image%>">
+                  <h4>
+                    <a href="/singleCard?id=<%=pokemonster.id%>">
+                      <%= pokemonster.name %>
+                    </a>
+                  </h4>
+                  <form method = "post" action="/cards">
+                  <% if (loggedIn) { %>
+                   <input type="text" hidden name="memberId" value="<%= memberId %>">
+                  <input type="text" hidden name="id" value="<%= pokemonster.id%>">
+                  <button class="p-button"><i class="p-icon--plus"></i></button>
+                  <% } %>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <% })} %>
+        </div>
+
+    </div>
+
+</body>

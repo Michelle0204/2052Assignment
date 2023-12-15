@@ -1,0 +1,57 @@
+
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+  <%- include("../partials/nav") %>
+
+    <div class="mid">
+      <img class="p-image--bordered mid" src="/img/pokemon2.png">
+    </div>
+    <div class="container">
+      <%- include("../partials/side")%>
+        <div class="row">
+          <script src="/cards.js"></script>
+          <% if(typeof pokemon !=='undefined' ) { pokemon.forEach((pokemonster)=> { %>
+            <div class="col-3 border-edit filter <%=pokemonster.type1%> <%=pokemonster.rarity%> <%=pokemonster.name%>">
+              <div class="p-card u-no-padding">
+                <div class="p-card__content">
+                  <img class="p-card__image" alt="" height="185" width="330" src="<%=pokemonster.image%>">
+                  <h4>
+                    <a href="/singleCard?id=<%=pokemonster.id%>">
+                      <%= pokemonster.name %>
+                    </a>
+                  </h4>
+                  <p>
+                    <ul>
+                        <li>ID:<%=pokemonster.localId%>
+                        </li>
+                        <li>Rarity:<%=pokemonster.rarity%>
+                        </li>
+                        <li>HP:<%=pokemonster.hp%>
+                        </li>
+                        <li>DexID:<%=pokemonster.dexId%>
+                        </li>
+                        <li>Type:<%=pokemonster.type1%>
+                        </li>
+                        <li>Evolves From:<%=pokemonster.evolvesFrom%>
+                        </li>
+                    </ul>
+                    </p>
+                    <form method = "post" action="/membercollection/deletecard">
+                      <input type="submit" value="delete">
+                      <input hidden name="id" value="<%=pokemonster.id%>"
+                      
+                    </form>
+                </div>
+              </div>
+            </div>
+            <% })} %>
+        </div>
+
+    </div>
+
+</body>
