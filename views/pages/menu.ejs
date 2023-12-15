@@ -1,30 +1,49 @@
 <head>
-    <%- include('../partials/head') %>
+  <%- include('../partials/head') %>
 </head>
 
 <body>
-    <%- include('../partials/nav') %>
-        <div class="mid">
-            <img class="p-image--bordered mid" src="/img/pokemon2.png">
-        </div>
+  <%- include('../partials/nav') %>
+    <div class="mid">
+      <img class="p-image--bordered mid" src="/img/pokemon2.png">
+    </div>
 
-        <div class="row p-divider welcome">
-            <div class="col-4 p-divider__block">
-              <h2>WELCOME!</h2>
-              <p>To this Pokemon TGC website where you can see information about pokemon cards!
+    <div class="row p-divider welcome">
+      <div class="col-4 p-divider__block">
+        <h2>WELCOME!</h2>
+        <p>To this Pokemon TGC website where you can see information about pokemon cards!
 
-              </p>
-            </div>
-            <div class="col-4 p-divider__block">
-              <h2>COLLECT</h2>
-              <p>
-                Track your collection and add more cards to our ever expanding catalogue of cards!
-                            </p>
-            </div>
-            <div class="col-4 p-divider__block">
-              <h2>KEEP TRACK</h2>
-              <p>Keep track of all the cards in collection  by simply clicking the plus button onthe cards</p>
-            </div>
+        </p>
+      </div>
+      <div class="col-4 p-divider__block">
+        <h2>COLLECT</h2>
+        <p>
+          Track your collection and add more cards to our ever expanding catalogue of cards!
+        </p>
+      </div>
+      <div class="col-4 p-divider__block">
+        <h2>KEEP TRACK</h2>
+        <p>Keep track of all the cards in collection by simply clicking the plus button onthe cards</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>
+        MOST LIKED: <%=likes%>
+      </h2>
+      <div class="col-3">
+        <div class="p-card u-no-padding">
+          <div class="p-card__content">
+            <img class="p-card__image" alt="" height="185" width="330" src="<%=picture%>">
+            <h4>
+              <a href="/singleCard?id=<%=id%>">
+                <%= pokename %>
+              </a>
+            </h4>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>

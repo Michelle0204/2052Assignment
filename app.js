@@ -54,46 +54,46 @@ app.get('/cards', (req, res) => {
     let sessObj = req.session;
     let title = "Trading The Cart";
 
-    try{
-    let getMembers = 'SELECT memberId FROM members where username = (?)'
-    connection.query(getMembers, [sessObj.username], (err, result) => {
-        if (err) throw err;
-
-
-        let base = "SELECT pokemonimages.Image, pokemoninfo.* FROM pokemoninfo LEFT JOIN pokemonimages ON pokemonimages.id = pokemoninfo.id"
-        connection.query(base, (err, rows) => {
+    try {
+        let getMembers = 'SELECT memberId FROM members where username = (?)'
+        connection.query(getMembers, [sessObj.username], (err, result) => {
             if (err) throw err;
-            //res.send(`<code>${row}</code>`);
-            if (sessObj.loggedIn) {
-                res.render('pages/cards', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username, memberId: result[0].memberId });
-            } else {
-                res.render('pages/cards', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username });
-            }
+
+
+            let base = "SELECT pokemonimages.Image, pokemoninfo.* FROM pokemoninfo LEFT JOIN pokemonimages ON pokemonimages.id = pokemoninfo.id"
+            connection.query(base, (err, rows) => {
+                if (err) throw err;
+                //res.send(`<code>${row}</code>`);
+                if (sessObj.loggedIn) {
+                    res.render('pages/cards', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username, memberId: result[0].memberId });
+                } else {
+                    res.render('pages/cards', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username });
+                }
+            });
         });
-    });
-}catch (error) { res.redirect('/menu') }
+    } catch (error) { res.redirect('/menu') }
 });
 
 app.get('/singleCard', (req, res) => {
     let sessObj = req.session;
     let title = "Card Details";
     let id = req.query.id;
-try{
-    let getMembers = 'SELECT memberId FROM members where username = (?)'
-    connection.query(getMembers, [sessObj.username], (err, result) => {
-        if (err) throw err;
-
-        let info = `SELECT pokemonimages.Image, pokemoninfo.* FROM pokemoninfo LEFT JOIN pokemonimages ON pokemonimages.id = pokemoninfo.id WHERE pokemoninfo.id = '${id}' ORDER BY id`
-        //`SELECT * FROM pokemoninfo WHERE id = '${id}'`;
-
-        connection.query(info, (err, rows) => {
+    try {
+        let getMembers = 'SELECT memberId FROM members where username = (?)'
+        connection.query(getMembers, [sessObj.username], (err, result) => {
             if (err) throw err;
 
-            res.render('pages/singleCard', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username });
-        });
+            let info = `SELECT pokemonimages.Image, pokemoninfo.* FROM pokemoninfo LEFT JOIN pokemonimages ON pokemonimages.id = pokemoninfo.id WHERE pokemoninfo.id = '${id}' ORDER BY id`
+            //`SELECT * FROM pokemoninfo WHERE id = '${id}'`;
 
-    });
-}catch (error) { res.redirect('/menu') }
+            connection.query(info, (err, rows) => {
+                if (err) throw err;
+
+                res.render('pages/singleCard', { tdata: title, pokemon: rows, loggedIn: sessObj.loggedIn, username: sessObj.username });
+            });
+
+        });
+    } catch (error) { res.redirect('/menu') }
 });
 app.get('/', (req, res) => {
     let sessObj = req.session;
@@ -104,7 +104,16 @@ app.get('/', (req, res) => {
 app.get('/menu', (req, res) => {
     let sessObj = req.session;
     let title = "Trading The Cart";
-    res.render('pages/menu', { tdata: title, username: sessObj.username, loggedIn: sessObj.loggedIn });
+     try {
+    let likedcards = `SELECT membercollection.memberId,membercollection.id,pokemonimages.Image, COUNT(membercollection.id) AS id_count FROM membercollection INNER join pokemonimages on pokemonimages.id =membercollection.id GROUP BY id ORDER BY id_count DESC LIMIT 3;`
+        connection.query(likedcards, [sessObj.id], (err, result) => {
+            if (err) throw err;
+
+            res.render('pages/menu', { tdata: title, username: sessObj.username, loggedIn: sessObj.loggedIn, likes: result[0].id_count, likedcards: sessObj.id, picture: result[0].Image, pokename: name, id:sessObj.id });
+        });
+     } catch (error) {
+    res.redirect('/login')
+}
 });
 
 app.get('/login', (req, res) => {
@@ -143,8 +152,8 @@ app.get('/membercollection', (req, res) => {
     let sessObj = req.session;
     let title = "Collection";
 
-    
-        let getMembers = 'SELECT memberId FROM members where username = ?'
+
+    let getMembers = 'SELECT memberId FROM members where username = ?'
     try {
         connection.query(getMembers, [sessObj.username], (err, result) => {
             let base = `SELECT pokemonimages.image, membercollection.*, pokemoninfo.* FROM pokemoninfo Left JOIN membercollection on membercollection.id = pokemoninfo.id INNER JOIN pokemonimages on pokemonimages.id = pokemoninfo.id left join members on members.memberId = membercollection.memberId where membercollection.memberId = "${result[0].memberId}"`
@@ -206,48 +215,48 @@ app.post('/register', (req, res) => {
     var password = req.body.password;
     let username = req.body.username;
     let sessObj = req.session;
-try{
-    // Insert new user data into 'members' table
-    var sql = `INSERT INTO members (firstname, surname, username, email, password) VALUES (?, ?, ?, ?, ?)`;
+    try {
+        // Insert new user data into 'members' table
+        var sql = `INSERT INTO members (firstname, surname, username, email, password) VALUES (?, ?, ?, ?, ?)`;
 
-    connection.query(sql, [firstname, surname, username, email, password], (err, result) => {
-        if (err) throw err;
-        sessObj.username = username;
-        sessObj.loggedIn = true;
-        res.redirect('/cards')
-    });
-}catch(error){
-    res.redirect('/menu')
-}
+        connection.query(sql, [firstname, surname, username, email, password], (err, result) => {
+            if (err) throw err;
+            sessObj.username = username;
+            sessObj.loggedIn = true;
+            res.redirect('/cards')
+        });
+    } catch (error) {
+        res.redirect('/menu')
+    }
 });
 
 app.post('/login', (req, res) => {
     var email = req.body.email;
     var password = req.body.password;
     let sessObj = req.session;
-try{
-    var sql = `SELECT * FROM members WHERE email = ?`;
+    try {
+        var sql = `SELECT * FROM members WHERE email = ?`;
 
-    connection.query(sql, [email,], (err, result) => {
-        if (err) throw err;
-        try {
-            if (result[0].password === password) {
-                sessObj.username = result[0].username;
-                sessObj.loggedIn = true;
-                res.redirect('/profile')
-            } else {
+        connection.query(sql, [email,], (err, result) => {
+            if (err) throw err;
+            try {
+                if (result[0].password === password) {
+                    sessObj.username = result[0].username;
+                    sessObj.loggedIn = true;
+                    res.redirect('/profile')
+                } else {
+                    res.redirect('/login')
+                } if (result[0].password !== password)
+                    res.redirect('/login')
+            } catch (error) {
+
                 res.redirect('/login')
-            } if (result[0].password !== password)
-                res.redirect('/login')
-        } catch (error) {
+            }
 
-            res.redirect('/login')
-        }
-
-    });
-}catch(error){
-res.redirect('/menu')
-} 
+        });
+    } catch (error) {
+        res.redirect('/menu')
+    }
 });
 
 app.post('/addCard', (req, res) => {
